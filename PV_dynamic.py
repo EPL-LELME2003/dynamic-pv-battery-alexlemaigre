@@ -10,6 +10,7 @@ c_batt = 1000   #euro/kWh
 eff_batt_in = 0.95
 eff_batt_out = 0.95
 chargetime = 4  # hours to charge fully the battery
+dischargetime = 4  # hours to discharge fully the battery
 
 # Model
 model = ConcreteModel()
@@ -63,7 +64,7 @@ model.battery_charge_in = Constraint(range(1,timestep+1), rule=battery_charge_in
 
 
 def battery_charge_out_rule(model, t):
-    return model.Pbatt_out[t] <= model.SoC_max / chargetime
+    return model.Pbatt_out[t] <= model.SoC_max / dischargetime
 
 model.battery_charge_out = Constraint(range(1,timestep+1), rule=battery_charge_out_rule)
 
